@@ -57,7 +57,7 @@ autocmd FileType html nnoremap <buffer> <leader>ce A --><esc>
 " All latex-exclusive commands, i.e wrap
 augroup latex
 	autocmd!
-	autocmd FileType latex <buffer> set wrap
+	autocmd FileType latex,tex :setlocal wrap
 augroup END
 
 " fold in by open and close brackets in html
