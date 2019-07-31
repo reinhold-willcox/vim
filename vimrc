@@ -6,6 +6,7 @@ set showcmd
 " Swap 1s for 2s on a given line 
 command! OT .s/1/2/g 
 command! COLM %!column -t
+"command! LATEX <silent> %!pdflatex initial_candidature_review.tex && bibtex initial_candidature_review.aux && pdflatex initial_candidature_review.tex && pdflatex initial_candidature_review.tex > /dev/null 2>&1 <CR>
 
 " Point to ctags file - for easy navigation in c++ 
 set tags=./tags,tags;$HOME
@@ -40,6 +41,7 @@ autocmd FileType vim,vimrc nnoremap <buffer> <leader>cc ^"<esc>
 autocmd FileType python nnoremap <buffer> <leader>cc ^#<esc>
 autocmd FileType c,c++ nnoremap <buffer> <leader>cc ^//<esc>
 autocmd FileType html nnoremap <buffer> <leader>cc ^i<!--<space><esc>A<space>--><esc>
+autocmd FileType tex nnoremap <buffer> <leader>cc I%<esc>
 "Fix the html one...
 
 " and for multiline comments
@@ -49,6 +51,8 @@ autocmd FileType c,c++ nnoremap <buffer> <leader>cb ^i/*<esc>
 autocmd FileType c,c++ nnoremap <buffer> <leader>ce A*/<esc>
 autocmd FileType html nnoremap <buffer> <leader>cb ^i<!-- <esc>
 autocmd FileType html nnoremap <buffer> <leader>ce A --><esc>
+autocmd FileType tex nnoremap <buffer> <leader>cb O\begin{comment}<esc>
+autocmd FileType tex nnoremap <buffer> <leader>ce o\end{comment}<esc>
 
 "set autocommands for common functions of different languages
 "autocmd FileType python :iabbrev <buffer> iff if:o<tab>k$<left>
