@@ -68,6 +68,14 @@ augroup END
 augroup html
 	autocmd!
 	autocmd FileType html nnoremap <buffer> <leader>f Vatzf
+	setlocal tabstop=2
+augroup END
+
+" Save and load all fold data
+augroup folds
+	autocmd!
+	autocmd QuitPre * mkview
+	autocmd BufRead * loadview
 augroup END
 
 " <nop> is the "turn off" key
