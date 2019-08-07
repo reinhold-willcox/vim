@@ -76,6 +76,7 @@ augroup END
 " Save and load all fold data
 augroup folds
 	autocmd!
+	" Fix this so that it saves on any write, and loads on any :e
 	autocmd QuitPre * mkview
 	autocmd BufRead * loadview
 augroup END
