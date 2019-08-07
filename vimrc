@@ -2,6 +2,7 @@ set number
 set nowrap 
 set tabstop=4
 set showcmd
+set foldcolumn=1
 
 " Swap 1s for 2s on a given line 
 command! OT .s/1/2/g 
@@ -37,18 +38,19 @@ iabbrev @@ reinhold.willcox@monash.edu
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 
 " set autocmds for filetype python, c++, vim, and html, where html gets a front and back one, and python and c++ have options for single and multiline
-autocmd FileType vim,vimrc nnoremap <buffer> <leader>cc ^"<esc>
-autocmd FileType python nnoremap <buffer> <leader>cc ^#<esc>
-autocmd FileType c,c++ nnoremap <buffer> <leader>cc ^//<esc>
-autocmd FileType html nnoremap <buffer> <leader>cc ^i<!--<space><esc>A<space>--><esc>
-autocmd FileType tex nnoremap <buffer> <leader>cc I%<esc>
+autocmd FileType vim,vimrc nnoremap <buffer> <leader>cc ^i"<esc>
+autocmd FileType python    nnoremap <buffer> <leader>cc ^i#<esc>
+autocmd FileType c,c++     nnoremap <buffer> <leader>cc ^i//<esc>
+autocmd FileType css       nnoremap <buffer> <leader>cc ^i/*<esc>A*/<esc>
+autocmd FileType html      nnoremap <buffer> <leader>cc ^i<!--<space><esc>A<space>--><esc>
+autocmd FileType tex       nnoremap <buffer> <leader>cc I%<esc>
 "Fix the html one...
 
 " and for multiline comments
 autocmd FileType python nnoremap <buffer> <leader>cb ^i"""<esc>
 autocmd FileType python nnoremap <buffer> <leader>ce A"""<esc>
-autocmd FileType c,c++ nnoremap <buffer> <leader>cb ^i/*<esc>
-autocmd FileType c,c++ nnoremap <buffer> <leader>ce A*/<esc>
+autocmd FileType c,c++,css nnoremap <buffer> <leader>cb ^i/*<esc>
+autocmd FileType c,c++,css nnoremap <buffer> <leader>ce A*/<esc>
 autocmd FileType html nnoremap <buffer> <leader>cb ^i<!-- <esc>
 autocmd FileType html nnoremap <buffer> <leader>ce A --><esc>
 autocmd FileType tex nnoremap <buffer> <leader>cb O\begin{comment}<esc>
@@ -77,6 +79,7 @@ augroup folds
 	autocmd QuitPre * mkview
 	autocmd BufRead * loadview
 augroup END
+
 
 " <nop> is the "turn off" key
 
@@ -112,3 +115,5 @@ augroup END
 " \p printable character
 
 " Setup a command for latex files only that compiles the current document. If it's been run (with xdg-open) already, the window will simply update. Maybe setup an if then, so that I can also open the doc if it hasn't already
+
+" Setup a command that, whenever I quit a file, saves the current folds. Ostensibly, this should be :mkview, and then loaded with :loadview, but check the scope of these first
