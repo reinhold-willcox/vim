@@ -38,12 +38,12 @@ iabbrev @@ reinhold.willcox@monash.edu
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 
 " set autocmds for filetype python, c++, vim, and html, where html gets a front and back one, and python and c++ have options for single and multiline
-autocmd FileType vim,vimrc nnoremap <buffer> <leader>cc ^i"<esc>
-autocmd FileType python    nnoremap <buffer> <leader>cc ^i#<esc>
-autocmd FileType c,c++     nnoremap <buffer> <leader>cc ^i//<esc>
-autocmd FileType css       nnoremap <buffer> <leader>cc ^i/*<esc>A*/<esc>
-autocmd FileType html      nnoremap <buffer> <leader>cc ^i<!--<space><esc>A<space>--><esc>
-autocmd FileType tex       nnoremap <buffer> <leader>cc I%<esc>
+autocmd FileType vim,vimrc		nnoremap <buffer> <leader>cc ^i"<esc>
+autocmd FileType python,bash  nnoremap <buffer> <leader>cc ^i#<esc>
+autocmd FileType c,c++ 			nnoremap <buffer> <leader>cc ^i//<esc>
+autocmd FileType css   			nnoremap <buffer> <leader>cc ^i/*<esc>A*/<esc>
+autocmd FileType html  			nnoremap <buffer> <leader>cc ^i<!--<space><esc>A<space>--><esc>
+autocmd FileType tex   			nnoremap <buffer> <leader>cc I%<esc>
 "Fix the html one...
 
 " and for multiline comments
@@ -70,13 +70,14 @@ augroup END
 augroup html
 	autocmd!
 	autocmd FileType html nnoremap <buffer> <leader>f Vatzf
-	setlocal tabstop=2
+	autocmd FileType html setlocal tabstop=2
 augroup END
 
 " Save and load all fold data
 augroup folds
 	autocmd!
 	" Fix this so that it saves on any write, and loads on any :e
+	" This is vitally important!
 	autocmd QuitPre * mkview
 	autocmd BufRead * loadview
 augroup END
@@ -118,3 +119,5 @@ augroup END
 " Setup a command for latex files only that compiles the current document. If it's been run (with xdg-open) already, the window will simply update. Maybe setup an if then, so that I can also open the doc if it hasn't already
 
 " Setup a command that, whenever I quit a file, saves the current folds. Ostensibly, this should be :mkview, and then loaded with :loadview, but check the scope of these first
+
+" Find the bashrc filetype and add in commenting to it
