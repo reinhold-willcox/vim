@@ -1,3 +1,6 @@
+" Caps lock was removed in place of Esc (single press) and Ctrl (press with another) using the command found here: http://tiborsimko.org/capslock-escape-control.html
+" Additionally, Shift+Caps_Lock was set to Caps_Lock in ~/.Xmodmap (use `xmodmap ~/.Xmodmap' to source changes)	
+
 set number 
 set nowrap 
 set tabstop=4
@@ -13,13 +16,13 @@ command! COLM %!column -t
 set tags=./tags,tags;$HOME
 
 " common sense remappings
-:map <space> <leader>
-:noremap : ;
-:noremap ; :
+map <space> <leader>
+noremap : ;
+noremap ; :
 
-" fuckin golden - shift-tab to escape from any mode
-noremap <S-tab> <esc>
-noremap! <S-tab> <esc>
+" fuckin golden - shift-tab to escape from any mode - now I just use capslock, set as a system config
+"noremap <S-tab> <esc>
+"noremap! <S-tab> <esc>
 
 "move current line down
 nnoremap <leader>j jddkkpj
@@ -74,20 +77,24 @@ augroup html
 augroup END
 
 " Save and load all fold data
-augroup folds
-	autocmd!
-	" Fix this so that it saves on any write, and loads on any :e
-	" This is vitally important!
-	autocmd QuitPre * mkview
-	autocmd BufRead * loadview
-augroup END
+"augroup folds
+"	autocmd!
+"	" Fix this so that it saves on any write, and loads on any :e
+"	" This is vitally important!
+"	autocmd QuitPre * mkview
+"	autocmd BufRead * loadview
+"augroup END
 
 
 " <nop> is the "turn off" key
 
 
-
-
+" kite commands
+set laststatus=2 " always show the status line
+set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
+let g:kite_tab_complete=1	
+set completeopt-=preview
+"set completeopt+=preview
 
 
 
@@ -121,3 +128,7 @@ augroup END
 " Setup a command that, whenever I quit a file, saves the current folds. Ostensibly, this should be :mkview, and then loaded with :loadview, but check the scope of these first
 
 " Find the bashrc filetype and add in commenting to it
+
+
+
+
