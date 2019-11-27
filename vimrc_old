@@ -1,43 +1,11 @@
 " Caps lock was removed in place of Esc (single press) and Ctrl (press with another) using the command found here: http://tiborsimko.org/capslock-escape-control.html
 " Additionally, Shift+Caps_Lock was set to Caps_Lock in ~/.Xmodmap (use `xmodmap ~/.Xmodmap' to source changes)	
 
-" Vundle setup
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
-
-" let Vundle manage Vundle, required
-"Plugin 'VundleVim/Vundle.vim'
-" smart autocomplete
-"Plugin 'davidhalter/jedi-vim'
-" smart tab-completion
-"Plugin 'ervandew/supertab'
-" smart folding
-"Plugin 'tmhedberg/SimpylFold'
-" file system explorer
-"Plugin 'scrooloose/nerdtree'
-
-" See bundle/Vundle.vim/README.md for examples of different formats supported, and other useful knowledge
-" All of your Plugins must be added before the following line
-"call vundle#end()            " required
-"filetype plugin indent on    " required
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-
 set number 
 set nowrap 
 set tabstop=4
 set showcmd
 set foldcolumn=1
-
-syntax on
-colorscheme ron
 
 " Swap 1s for 2s on a given line 
 command! OT .s/1/2/g 
@@ -51,6 +19,10 @@ set tags=./tags,tags;$HOME
 map <space> <leader>
 noremap : ;
 noremap ; :
+
+" fuckin golden - shift-tab to escape from any mode - now I just use capslock, set as a system config
+"noremap <S-tab> <esc>
+"noremap! <S-tab> <esc>
 
 "move current line down
 nnoremap <leader>j jddkkpj
@@ -67,23 +39,6 @@ iabbrev @@ reinhold.willcox@monash.edu
 
 " surround word in quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-
-" make it easier to move around screens
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" NERDTree
-map <F2> :NERDTreeToggle<CR>
-
-" Jedi-Vim mods
-"let g:jedi#completions_command = "<S-tab>"
-
-" Folding - indent works best for python
-"set foldmethod=indent
-"set foldlevel=99
-"nnoremap <leader><space> za
 
 " set autocmds for filetype python, c++, vim, and html, where html gets a front and back one, and python and c++ have options for single and multiline
 autocmd FileType vim,vimrc		nnoremap <buffer> <leader>cc ^i"<esc>
@@ -107,10 +62,6 @@ autocmd FileType tex nnoremap <buffer> <leader>ce o\end{comment}<esc>
 "set autocommands for common functions of different languages
 "autocmd FileType python :iabbrev <buffer> iff if:o<tab>k$<left>
 "autocmd FileType python :iabbrev <buffer> iff if:<cr><c-i>
-
-autocmd FileType *.py
-	\ set autoindent
-	\ set fileformat=unix
 
 " All latex-exclusive commands, i.e wrap
 augroup latex
@@ -143,9 +94,8 @@ augroup END
 "set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
 "let g:kite_tab_complete=1	
 "set completeopt-=preview
-""set completeopt+=preview
+"set completeopt+=preview
 
-"Plugin 'davidhalter/jedi-vim'
 
 
 

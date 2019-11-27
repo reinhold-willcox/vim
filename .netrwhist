@@ -1,4 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/home/rwillcox/projects/reinhold-willcox.github.io/.git'
 let g:netrw_dirhist_2='/home/rwillcox/.vim'
+let g:netrw_dirhist_3='/usr/share/vim/vim80'
+let g:netrw_dirhist_4='/home/rwillcox/astro/NS_natal_kicks/scripts/stats'
+let g:netrw_dirhist_5='/home/rwillcox/astro/NS_natal_kicks/scripts/plotting_scripts'
+let g:netrw_dirhist_6='/home/rwillcox/.vim/jedi-vim'
