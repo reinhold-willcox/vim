@@ -42,7 +42,46 @@ colorscheme ron
 " Swap 1s for 2s on a given line 
 command! OT .s/1/2/g 
 command! COLM %!column -t
+" figure out how to expand the COLM command to selections. The following will work for selections   :'<,'>!column -t   just need to figure out how to incorporate that in...
 "command! LATEX <silent> %!pdflatex initial_candidature_review.tex && bibtex initial_candidature_review.aux && pdflatex initial_candidature_review.tex && pdflatex initial_candidature_review.tex > /dev/null 2>&1 <CR>
+" not ready yet... command! TTS %!tts
+function! COMPAS()
+	" Space out the COMPAS output files correctly, and skip any errors along the way
+	try
+		%s/\s*//g 
+	catch
+		echo "Caught error: " . v:exception
+	endtry
+
+	try
+		2s/^/#/g 
+	catch
+		echo "Caught error: " . v:exception
+	endtry
+
+	try
+		2s/,,/,#,/g 
+	catch
+		echo "Caught error: " . v:exception
+	endtry
+
+	try
+		2s/,,/,#,/g 
+	catch
+		echo "Caught error: " . v:exception
+	endtry
+
+	try
+		%s/,/,\t/g 
+	catch
+		echo "Caught error: " . v:exception
+	endtry
+
+	COLM
+endfunction
+
+command! COMPAS call COMPAS()
+
 
 " Point to ctags file - for easy navigation in c++ 
 set tags=./tags,tags;$HOME
@@ -179,6 +218,8 @@ augroup END
 
 " Find the bashrc filetype and add in commenting to it
 
+" Add in a quick command that will toggle True to False (and possibly other common booleans)
 
+" Add in a command that will split screens and set scb on, horizontal only, with ~5 lines at the top, for data files with headers
 
 
