@@ -45,8 +45,9 @@ command! COLM %!column -t
 " figure out how to expand the COLM command to selections. The following will work for selections   :'<,'>!column -t   just need to figure out how to incorporate that in...
 "command! LATEX <silent> %!pdflatex initial_candidature_review.tex && bibtex initial_candidature_review.aux && pdflatex initial_candidature_review.tex && pdflatex initial_candidature_review.tex > /dev/null 2>&1 <CR>
 " not ready yet... command! TTS %!tts
+
+" Space out the COMPAS output files correctly, and skip any errors along the way
 function! COMPAS()
-	" Space out the COMPAS output files correctly, and skip any errors along the way
 	try
 		%s/\s*//g 
 	catch
@@ -78,8 +79,8 @@ function! COMPAS()
 	endtry
 
 	COLM
+	HEADER
 endfunction
-
 command! COMPAS call COMPAS()
 
 
@@ -172,6 +173,38 @@ augroup END
 "	autocmd QuitPre * mkview
 "	autocmd BufRead * loadview
 "augroup END
+
+" Function to split a data file into a header and body, with correct scrollbinding
+function! HEADER(...)
+	" split screen, make upper screen N high, 4 by default
+	try
+		let buff = a:1
+	catch
+		let buff = 4
+	endtry
+
+	execute buff.'split'
+	execute buff.'normal O'
+	execute 'normal gg'
+
+	" set scrollbinding for upper window
+	set scb
+	set sbo+=hor
+	set sbo-=ver
+
+	" switch to lower window
+	wincmd j
+
+	" set scrollbinding for lower window
+	set scb
+	set sbo+=hor
+	set sbo-=ver
+
+	" set top valid line to top of screen
+	execute 'normal '.(buff+1).'z+'
+
+endfunction
+command! HEADER call HEADER()
 
 
 " <nop> is the "turn off" key
