@@ -1,38 +1,51 @@
 " Caps lock was removed in place of Esc (single press) and Ctrl (press with another) using the command found here: http://tiborsimko.org/capslock-escape-control.html
 " Additionally, Shift+Caps_Lock was set to Caps_Lock in ~/.Xmodmap (use `xmodmap ~/.Xmodmap' to source changes)	
 
-" Vundle setup
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Specify plugin download directory
+call plug#begin('/home/rwillcox/.vim/plugins')
 
-" set the runtime path to include Vundle and initialize
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
+" Delcare list of plugins
+" See: https://dev.to/christalib/i-spent-3-years-configuring-n-vim-and-this-what-i-learnt-22on
 
-" let Vundle manage Vundle, required
-"Plugin 'VundleVim/Vundle.vim'
-" smart autocomplete
-"Plugin 'davidhalter/jedi-vim'
-" smart tab-completion
-"Plugin 'ervandew/supertab'
-" smart folding
-"Plugin 'tmhedberg/SimpylFold'
-" file system explorer
-"Plugin 'scrooloose/nerdtree'
+"Iron.nvim does REPL
+"Plug 'hkupty/iron.nvim'
 
-" See bundle/Vundle.vim/README.md for examples of different formats supported, and other useful knowledge
-" All of your Plugins must be added before the following line
-"call vundle#end()            " required
-"filetype plugin indent on    " required
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+"vimpyter integrates vim and jupyter notebooks
+"Plug 'szymonmaszke/vimpyter'
 
+"Run jupyter and vim simultaneously
+"Plug 'jupyter-vim/jupyter-vim'
+
+" Uncompromising Python code formatter
+"Plug 'psf/black', { 'tag': '19.10b0' }
+
+" Powerful linter and fixer 
+"Plug 'dense-analysis/ale'
+
+" Python autocompletion (with Vim)
+Plug 'davidhalter/jedi-vim' 
+
+" Completion tool, can also be made language specific
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" -- and if jedi is installed...
+"Plug 'deoplete-plugins/deoplete-go'
+
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
+
+" Required:
+filetype plugin indent on
+
+" To add plugins, include the name in the list above,
+" then run :PlugUpdate to add them
+""""""""
 
 set number 
 set nowrap 
+set expandtab
 set tabstop=4
+set shiftwidth=4
 set showcmd
 set foldcolumn=1
 
@@ -98,8 +111,8 @@ nnoremap <leader>j jddkkpj
 nnoremap <leader>k kddpk
 
 " quickly add to and save vimrc
-:nnoremap <leader>ev :split $MYVIMRC<cr>
-:nnoremap <leader>sv :source $MYVIMRC<cr>
+:nnoremap <leader>ev :split $VIMRC<cr>
+:nnoremap <leader>sv :source $VIMRC<cr>
 
 " abbreviations
 iabbrev ssig -- <cr>Reinhold Willcox<cr>reinhold.willcox@monash.edu<cr><cr>
@@ -125,10 +138,13 @@ map <F2> :NERDTreeToggle<CR>
 "set foldlevel=99
 "nnoremap <leader><space> za
 
+" Default to not read-only in vimdiff
+set noreadonly
+
 " set autocmds for filetype python, c++, vim, and html, where html gets a front and back one, and python and c++ have options for single and multiline
 autocmd FileType vim,vimrc		nnoremap <buffer> <leader>cc ^i"<esc>
-autocmd FileType python,bash  nnoremap <buffer> <leader>cc ^i#<esc>
-autocmd FileType c,c++ 			nnoremap <buffer> <leader>cc ^i//<esc>
+autocmd FileType python,bash,sh nnoremap <buffer> <leader>cc ^i#<esc>
+autocmd FileType c,c++,cpp 		nnoremap <buffer> <leader>cc ^i//<esc>
 autocmd FileType css   			nnoremap <buffer> <leader>cc ^i/*<esc>A*/<esc>
 autocmd FileType html  			nnoremap <buffer> <leader>cc ^i<!--<space><esc>A<space>--><esc>
 autocmd FileType tex   			nnoremap <buffer> <leader>cc I%<esc>
@@ -205,7 +221,6 @@ function! HEADER(...)
 
 endfunction
 command! HEADER call HEADER()
-
 
 " <nop> is the "turn off" key
 
