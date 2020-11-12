@@ -7,6 +7,21 @@ call plug#begin('/home/rwillcox/.vim/plugins')
 " Delcare list of plugins
 " See: https://dev.to/christalib/i-spent-3-years-configuring-n-vim-and-this-what-i-learnt-22on
 
+" https://vimawesome.com/plugin/fugitive-vim For git purposes
+"Plug 'tpope/vim-fugitive' 
+
+" PEP8 style guid - didn't work for some reason
+"Plug 'nvie/vim-flake8'
+
+" Asynchronous linting
+"Plug 'dense-analysis/ale'
+
+" Statusbar
+Plug 'vim-airline/vim-airline'
+
+" Autocompletion
+"Plug 'Valloric/YouCompleteMe'
+
 "Iron.nvim does REPL
 "Plug 'hkupty/iron.nvim'
 
@@ -127,8 +142,17 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" vimdiff swap horizontal and vertical
+nnoremap <leader>v <C-w>J 
+nnoremap <leader>h <C-w>H 
+
 " NERDTree
 map <F2> :NERDTreeToggle<CR>
+
+" Fugitive.vim git macros
+nnoremap <leader>gs :Git<CR>
+nnoremap <leader>gj :diffget //3<CR>
+nnoremap <leader>gf :diffget //2<CR>
 
 " Jedi-Vim mods
 "let g:jedi#completions_command = "<S-tab>"
@@ -222,7 +246,27 @@ function! HEADER(...)
 endfunction
 command! HEADER call HEADER()
 
+nnoremap <esc> :noh<return><esc>
+
+" Reopen file to the same location
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
+" Show match as search proceeds
+set incsearch
+
+
+
+
+" For ALE linter
+
+let g:ale_fixers = ['black']
+
+
 " <nop> is the "turn off" key
+
 
 
 " kite commands
