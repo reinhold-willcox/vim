@@ -262,7 +262,7 @@ set incsearch
 
 " For ALE linter
 
-let g:ale_fixers = ['black']
+"let g:ale_fixers = ['black']
 
 
 " <nop> is the "turn off" key
