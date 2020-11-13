@@ -67,12 +67,57 @@ set foldcolumn=1
 syntax on
 colorscheme ron
 
+" common sense remappings
+map <space> <leader>
+noremap : ;
+noremap ; :
+
+
 " Swap 1s for 2s on a given line 
 command! OT .s/1/2/g 
 command! COLM %!column -t
 " figure out how to expand the COLM command to selections. The following will work for selections   :'<,'>!column -t   just need to figure out how to incorporate that in...
 "command! LATEX <silent> %!pdflatex initial_candidature_review.tex && bibtex initial_candidature_review.aux && pdflatex initial_candidature_review.tex && pdflatex initial_candidature_review.tex > /dev/null 2>&1 <CR>
 " not ready yet... command! TTS %!tts
+
+"move current line down
+nnoremap <leader>j jddkkpj
+"move current line up
+nnoremap <leader>k kddpk
+
+" quickly add to and save vimrc
+:nnoremap <leader>ev :split $VIMRC<cr>
+:nnoremap <leader>sv :source $VIMRC<cr>
+
+" surround word in quotes
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+
+" make it easier to move around screens
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" vimdiff swap horizontal and vertical
+nnoremap <leader>v <C-w>J 
+nnoremap <leader>h <C-w>H 
+
+" Default to not read-only in vimdiff
+set noreadonly
+
+" Reopen file to the same location
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
+" Show match as search proceeds, and highlight all matches
+set incsearch
+set hlsearch
+
+" abbreviations
+iabbrev ssig -- <cr>Reinhold Willcox<cr>reinhold.willcox@monash.edu<cr><cr>
+iabbrev @@ reinhold.willcox@monash.edu
 
 " Space out the COMPAS output files correctly, and skip any errors along the way
 function! COMPAS()
@@ -115,56 +160,6 @@ command! COMPAS call COMPAS()
 " Point to ctags file - for easy navigation in c++ 
 set tags=./tags,tags;$HOME
 
-" common sense remappings
-map <space> <leader>
-noremap : ;
-noremap ; :
-
-"move current line down
-nnoremap <leader>j jddkkpj
-"move current line up
-nnoremap <leader>k kddpk
-
-" quickly add to and save vimrc
-:nnoremap <leader>ev :split $VIMRC<cr>
-:nnoremap <leader>sv :source $VIMRC<cr>
-
-" abbreviations
-iabbrev ssig -- <cr>Reinhold Willcox<cr>reinhold.willcox@monash.edu<cr><cr>
-iabbrev @@ reinhold.willcox@monash.edu
-
-" surround word in quotes
-nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-
-" make it easier to move around screens
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" vimdiff swap horizontal and vertical
-nnoremap <leader>v <C-w>J 
-nnoremap <leader>h <C-w>H 
-
-" NERDTree
-map <F2> :NERDTreeToggle<CR>
-
-" Fugitive.vim git macros
-nnoremap <leader>gs :Git<CR>
-nnoremap <leader>gj :diffget //3<CR>
-nnoremap <leader>gf :diffget //2<CR>
-
-" Jedi-Vim mods
-"let g:jedi#completions_command = "<S-tab>"
-
-" Folding - indent works best for python
-"set foldmethod=indent
-"set foldlevel=99
-"nnoremap <leader><space> za
-
-" Default to not read-only in vimdiff
-set noreadonly
-
 " set autocmds for filetype python, c++, vim, and html, where html gets a front and back one, and python and c++ have options for single and multiline
 autocmd FileType vim,vimrc		nnoremap <buffer> <leader>cc ^i"<esc>
 autocmd FileType python,bash,sh nnoremap <buffer> <leader>cc ^i#<esc>
@@ -184,9 +179,6 @@ autocmd FileType html nnoremap <buffer> <leader>ce A --><esc>
 autocmd FileType tex nnoremap <buffer> <leader>cb O\begin{comment}<esc>
 autocmd FileType tex nnoremap <buffer> <leader>ce o\end{comment}<esc>
 
-"set autocommands for common functions of different languages
-"autocmd FileType python :iabbrev <buffer> iff if:o<tab>k$<left>
-"autocmd FileType python :iabbrev <buffer> iff if:<cr><c-i>
 
 autocmd FileType *.py
 	\ set autoindent
@@ -204,15 +196,6 @@ augroup html
 	autocmd FileType html nnoremap <buffer> <leader>f Vatzf
 	autocmd FileType html setlocal tabstop=2
 augroup END
-
-" Save and load all fold data
-"augroup folds
-"	autocmd!
-"	" Fix this so that it saves on any write, and loads on any :e
-"	" This is vitally important!
-"	autocmd QuitPre * mkview
-"	autocmd BufRead * loadview
-"augroup END
 
 " Function to split a data file into a header and body, with correct scrollbinding
 function! HEADER(...)
@@ -246,16 +229,43 @@ function! HEADER(...)
 endfunction
 command! HEADER call HEADER()
 
-nnoremap <esc> :noh<return><esc>
+"""""""""""""""""""""""""""""
 
-" Reopen file to the same location
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g'\"" | endif
-endif
+" Remove highlighting after search
+nnoremap <leader><space> :noh<return><esc>
 
-" Show match as search proceeds
-set incsearch
+
+
+"" NERDTree
+"map <F2> :NERDTreeToggle<CR>
+"
+"" Fugitive.vim git macros
+""nnoremap <leader>gs :Git<CR>
+""nnoremap <leader>gj :diffget //3<CR>
+""nnoremap <leader>gf :diffget //2<CR>
+"
+"" Jedi-Vim mods
+""let g:jedi#completions_command = "<S-tab>"
+"
+"" Folding - indent works best for python
+""set foldmethod=indent
+""set foldlevel=99
+""nnoremap <leader><space> za
+"
+
+""set autocommands for common functions of different languages
+""autocmd FileType python :iabbrev <buffer> iff if:o<tab>k$<left>
+""autocmd FileType python :iabbrev <buffer> iff if:<cr><c-i>
+"
+"" Save and load all fold data
+""augroup folds
+""	autocmd!
+""	" Fix this so that it saves on any write, and loads on any :e
+""	" This is vitally important!
+""	autocmd QuitPre * mkview
+""	autocmd BufRead * loadview
+""augroup END
+"
 
 
 
@@ -275,9 +285,6 @@ set incsearch
 "let g:kite_tab_complete=1	
 "set completeopt-=preview
 ""set completeopt+=preview
-
-"Plugin 'davidhalter/jedi-vim'
-
 
 
 
