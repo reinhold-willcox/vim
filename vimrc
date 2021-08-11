@@ -58,11 +58,18 @@ filetype plugin indent on
 
 set number 
 set nowrap 
+set tabstop=4 softtabstop=4
 set expandtab
-set tabstop=4
 set shiftwidth=4
 set showcmd
 set foldcolumn=1
+set ignorecase smartcase
+
+" look into these, from primeagen - last two works with undoTree
+" set noswapfile
+" set nobackup
+" set undodir=~/.vim/undodir
+" set undofile
 
 syntax on
 colorscheme ron
@@ -80,6 +87,11 @@ command! COLM %!column -t
 "command! LATEX <silent> %!pdflatex initial_candidature_review.tex && bibtex initial_candidature_review.aux && pdflatex initial_candidature_review.tex && pdflatex initial_candidature_review.tex > /dev/null 2>&1 <CR>
 " not ready yet... command! TTS %!tts
 
+
+
+
+
+
 "move current line down
 nnoremap <leader>j jddkkpj
 "move current line up
@@ -88,6 +100,10 @@ nnoremap <leader>k kddpk
 " quickly add to and save vimrc
 :nnoremap <leader>ev :split $VIMRC<cr>
 :nnoremap <leader>sv :source $VIMRC<cr>
+
+"
+"
+
 
 " surround word in quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
@@ -167,6 +183,8 @@ autocmd FileType c,c++,cpp 		nnoremap <buffer> <leader>cc ^i//<esc>
 autocmd FileType css   			nnoremap <buffer> <leader>cc ^i/*<esc>A*/<esc>
 autocmd FileType html  			nnoremap <buffer> <leader>cc ^i<!--<space><esc>A<space>--><esc>
 autocmd FileType tex   			nnoremap <buffer> <leader>cc I%<esc>
+autocmd FileType tex   			nnoremap <buffer> <leader>cc I%<esc>
+autocmd FileType yaml  			nnoremap <buffer> <leader>cc ^i#<esc>
 "Fix the html one...
 
 " and for multiline comments
@@ -196,6 +214,9 @@ augroup html
 	autocmd FileType html nnoremap <buffer> <leader>f Vatzf
 	autocmd FileType html setlocal tabstop=2
 augroup END
+
+" Set custom yaml configs
+autocmd FileType yaml setlocal ts=2 expandtab
 
 " Function to split a data file into a header and body, with correct scrollbinding
 function! HEADER(...)
@@ -234,6 +255,8 @@ command! HEADER call HEADER()
 " Remove highlighting after search
 nnoremap <leader><space> :noh<return><esc>
 
+" Recommended by https://hashrocket.com/blog/posts/understanding-the-buffer-list-in-vim-part-1#fn3
+set hidden
 
 
 "" NERDTree
