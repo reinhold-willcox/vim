@@ -1,8 +1,21 @@
 " Caps lock was removed in place of Esc (single press) and Ctrl (press with another) using the command found here: http://tiborsimko.org/capslock-escape-control.html
 " Additionally, Shift+Caps_Lock was set to Caps_Lock in ~/.Xmodmap (use `xmodmap ~/.Xmodmap' to source changes)	
 
-" Specify plugin download directory
+" Specify plugin download directory " vim-plug
 call plug#begin('/home/rwillcox/.vim/plugins')
+
+" ipython-cell
+Plug 'jpalardy/vim-slime', { 'for': 'python' }
+Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+
+" Statusbar
+Plug 'vim-airline/vim-airline'
+"
+" Python autocompletion (with Vim)
+Plug 'davidhalter/jedi-vim' 
+" for speeding things up
+let g:pymode_rope = 0 
+
 
 " Delcare list of plugins
 " See: https://dev.to/christalib/i-spent-3-years-configuring-n-vim-and-this-what-i-learnt-22on
@@ -16,8 +29,6 @@ call plug#begin('/home/rwillcox/.vim/plugins')
 " Asynchronous linting
 "Plug 'dense-analysis/ale'
 
-" Statusbar
-Plug 'vim-airline/vim-airline'
 
 " Autocompletion
 "Plug 'Valloric/YouCompleteMe'
@@ -37,8 +48,6 @@ Plug 'vim-airline/vim-airline'
 " Powerful linter and fixer 
 "Plug 'dense-analysis/ale'
 
-" Python autocompletion (with Vim)
-Plug 'davidhalter/jedi-vim' 
 
 " Completion tool, can also be made language specific
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -54,7 +63,25 @@ filetype plugin indent on
 
 " To add plugins, include the name in the list above,
 " then run :PlugUpdate to add them
+
+" Test if a plugin is installed correctly
+function! PlugLoaded(name)
+    return (
+        \ has_key(g:plugs, a:name) &&
+        \ isdirectory(g:plugs[a:name].dir) &&
+        \ stridx(&rtp, g:plugs[a:name].dir) >= 0)
+endfunction
+function! TestPlugLoaded(name)
+    if PlugLoaded(a:name)
+        echom "Plugin is loaded"
+    else
+        echom "Plugin is not loaded"
+    endif 
+endfunction
+
 """"""""
+
+
 
 set number 
 set nowrap 
@@ -258,6 +285,7 @@ nnoremap <leader><space> :noh<return><esc>
 " Recommended by https://hashrocket.com/blog/posts/understanding-the-buffer-list-in-vim-part-1#fn3
 set hidden
 
+let g:slime_target = "tmux"
 
 "" NERDTree
 "map <F2> :NERDTreeToggle<CR>
